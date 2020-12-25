@@ -1,6 +1,8 @@
 package com.dupake.common.service;
 
+import com.google.common.collect.Multimap;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -592,5 +594,9 @@ public class RedisService {
             e.printStackTrace();
             return 0;
         }
+    }
+
+    public HashOperations<String, Object, Object> opsForHash() {
+        return redisTemplate.opsForHash();
     }
 }

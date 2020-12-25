@@ -6,11 +6,13 @@ import com.dupake.admin.domain.CmsHelpDTO;
 import com.dupake.admin.service.DemoService;
 import com.dupake.common.api.CommonPage;
 import com.dupake.common.api.CommonResult;
+import com.dupake.common.service.RedisService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -25,6 +27,9 @@ public class DemoController {
 
     @Resource
     private DemoService demoService;
+
+    @Resource
+    private RedisService redisService;
 
     @ApiOperation(value = "获取帮助列表")
     @GetMapping(value = "getCmsList")
@@ -60,6 +65,15 @@ public class DemoController {
     @PostMapping(value = "deleteCms")
     public CommonResult<Integer> deleteCms(@RequestBody Set<Long> ids) {
         return CommonResult.success(demoService.deleteCms(ids));
+    }
+
+    @ApiOperation(value = "测试redis")
+    @GetMapping(value = "redis")
+    public CommonResult testRedis() {
+        CmsHelp cmsHelp = CmsHelp.builder().id(1L).content("测试").createTime(new Date()).build();
+        redisService.set("test", cmsHelp);
+        CmsHelp cmsHelp1 = (CmsHelp) redisService.get("test");
+        return CommonResult.success(cmsHelp1);
     }
 
 }
