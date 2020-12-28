@@ -1,46 +1,27 @@
 package com.dupake.auth.config;
 
-import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
-import org.springframework.context.annotation.Bean;
+import com.dupake.common.config.BaseSwaggerConfig;
+import com.dupake.common.domain.SwaggerProperties;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+/**
+ * Swagger API文档相关配置
+ * Created by macro on 2018/4/26.
+ */
 @Configuration
 @EnableSwagger2
-@EnableKnife4j
-@Import(BeanValidatorPluginsConfiguration.class)
-public class SwaggerConfig {
+public class SwaggerConfig extends BaseSwaggerConfig {
 
-
-    @Bean(value = "defaultApi2")
-    public Docket defaultApi2() {
-        Docket docket=new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                //分组名称
-                .groupName("2.X版本")
-                .select()
-                //这里指定Controller扫描包路径(项目路径也行)
-                .apis(RequestHandlerSelectors.basePackage("com.dupake.auth.controller"))
-                .paths(PathSelectors.any())
-                .build();
-        return docket;
-    }
-    private ApiInfo apiInfo() {
-        return new ApiInfoBuilder()
-                .title("Admin服务")
-                .description("Admin服务测试使用")
-                .termsOfServiceUrl("http://localhost:8080/")
-                .contact("10086@mail.com")
+    @Override
+    public SwaggerProperties swaggerProperties() {
+        return SwaggerProperties.builder()
+                .apiBasePackage("com.dupake.auth.controller")
+                .title("han认证中心")
+                .description("han认证中心相关接口文档")
+                .contactName("macro")
                 .version("1.0")
+                .enableSecurity(true)
                 .build();
     }
 }
-
