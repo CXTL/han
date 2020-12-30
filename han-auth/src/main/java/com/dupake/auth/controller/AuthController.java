@@ -10,11 +10,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
+import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.security.Principal;
@@ -31,6 +29,9 @@ public class AuthController {
 
     @Autowired
     private TokenEndpoint tokenEndpoint;
+
+    @Autowired
+    private ConsumerTokenServices consumerTokenServices;
 
     @ApiOperation("Oauth2获取token")
     @ApiImplicitParams({
@@ -52,4 +53,15 @@ public class AuthController {
 
         return CommonResult.success(oauth2TokenDto);
     }
+
+    @ApiOperation("用户登出")
+    @PostMapping("/logout")
+    public CommonResult logout(@RequestParam String accessToken) {
+        if (consumerTokenServices.revokeToken(accessToken)) {
+            return CommonResult.success(null);
+        } else {
+            return CommonResult.failed();
+        }
+    }
+
 }

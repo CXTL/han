@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -40,6 +41,7 @@ public class DemoServiceImpl implements DemoService {
     public Integer addCms(CmsHelpDTO dto) {
         CmsHelp cmsHelp = CmsHelp.builder().build();
         BeanUtil.copyProperties(dto,cmsHelp);
+        cmsHelp.setCreateTime(new Date());
         return demoMapper.insert(cmsHelp);
     }
 

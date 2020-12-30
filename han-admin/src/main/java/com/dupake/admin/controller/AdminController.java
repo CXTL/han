@@ -1,7 +1,9 @@
 package com.dupake.admin.controller;
 
 
-import com.dupake.admin.service.AdminService;
+import com.dupake.admin.domain.UmsAdmin;
+import com.dupake.admin.domain.UmsAdminLoginParam;
+import com.dupake.admin.service.UmsAdminService;
 import com.dupake.common.api.CommonResult;
 import com.dupake.common.domain.UserDto;
 import io.swagger.annotations.Api;
@@ -20,7 +22,7 @@ import javax.annotation.Resource;
 public class AdminController {
 
     @Resource
-    private AdminService adminService;
+    private UmsAdminService adminService;
 
     @ApiOperation(value = "用户注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -30,17 +32,16 @@ public class AdminController {
     }
 
     @ApiOperation(value = "登录以后返回token")
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    @ResponseBody
-    public CommonResult login() {
-        return CommonResult.success(null);
+    @PostMapping(value = "/login")
+    public CommonResult login(@RequestBody UmsAdminLoginParam param) {
+        return adminService.login(param);
     }
 
     @ApiOperation(value = "获取当前登录用户信息")
-    @RequestMapping(value = "/info", method = RequestMethod.GET)
-    @ResponseBody
+    @GetMapping(value = "/info")
     public CommonResult getAdminInfo() {
-        return CommonResult.success(null);
+        UmsAdmin umsAdmin = adminService.getCurrentAdmin();
+        return CommonResult.success(umsAdmin);
     }
 
     @ApiOperation(value = "登出功能")
