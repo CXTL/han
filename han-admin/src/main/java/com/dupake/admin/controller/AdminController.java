@@ -8,6 +8,7 @@ import com.dupake.common.api.CommonResult;
 import com.dupake.common.domain.UserDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -21,8 +22,17 @@ import javax.annotation.Resource;
 @RequestMapping(value = "admin")
 public class AdminController {
 
+
+    @Value("${server.port}")
+    private String port;
     @Resource
     private UmsAdminService adminService;
+
+    @ApiOperation(value = "TestNacos data")
+    @GetMapping(value = "/test")
+    public CommonResult test() {
+        return CommonResult.success(port);
+    }
 
     @ApiOperation(value = "用户注册")
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -58,6 +68,5 @@ public class AdminController {
         UserDto userDTO = adminService.loadUserByUsername(username);
         return userDTO;
     }
-
 
 }

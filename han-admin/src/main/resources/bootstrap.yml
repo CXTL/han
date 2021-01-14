@@ -1,6 +1,4 @@
 spring:
-  profiles:
-    active: dev
   application:
     name: han-admin
   cloud:
@@ -8,5 +6,22 @@ spring:
       discovery:
         server-addr: http://localhost:8848
       config:
-        server-addr: http://localhost:8848
-        file-extension: yaml
+        file-extension: yaml  # 必须修改成yaml
+        group: DEFAULT_GROUP  # 缺省即可
+    stream:
+      binders: # 在此处配置需要绑定的rabbitMQ的信息
+        defaultRabbit: # 消息服务设置的名称，用于bindings整合
+          type: rabbit # 消息组件类型
+          environment: # rabbitmq环境配置
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672
+                username: admin
+                password: admin
+      bindings: # 服务的整合处理
+        output: # 通道名
+          destination: test-stream # rabbitmq的exchange的名称
+          content-type: application/json
+          binder: defaultRabbit # 消息服务设置的名称
+          group: A

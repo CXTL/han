@@ -6,8 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="han-admin" />
         <module name="han-auth" />
+        <module name="common" />
+        <module name="auth" />
+        <module name="admin" />
+        <module name="han-admin" />
+        <module name="demo" />
+        <module name="gateway" />
         <module name="han-common" />
         <module name="han-gateway" />
         <module name="han-demo" />
@@ -16,6 +21,11 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="admin" options="-parameters" />
+      <module name="auth" options="-parameters" />
+      <module name="common" options="-parameters" />
+      <module name="demo" options="-parameters" />
+      <module name="gateway" options="-parameters" />
       <module name="han-admin" options="-parameters" />
       <module name="han-auth" options="-parameters" />
       <module name="han-common" options="-parameters" />
