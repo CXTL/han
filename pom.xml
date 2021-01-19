@@ -50,6 +50,8 @@
         <nimbus-jose-jwt.version>8.16</nimbus-jose-jwt.version>
         <han-common.version>0.0.1-SNAPSHOT</han-common.version>
         <mall-mbg.version>1.0-SNAPSHOT</mall-mbg.version>
+
+        <docker.image.prefix>han</docker.image.prefix>
     </properties>
 
 

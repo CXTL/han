@@ -2,10 +2,14 @@ spring:
   application:
     name: han-demo
   cloud:
+    inetutils:
+      ignored-interfaces: eth.*
+      preferred-networks: 192.168.0
     nacos:
       discovery:
-        server-addr: http://localhost:8848
+        server-addr: http://10.3.2.214:8848
       config:
+        server-addr: http://10.3.2.214:8848
         file-extension: yaml  # 必须修改成yaml
         group: DEFAULT_GROUP  # 缺省即可
     stream:
@@ -15,7 +19,7 @@ spring:
           environment: # rabbitmq环境配置
             spring:
               rabbitmq:
-                host: localhost
+                host: 10.3.2.214
                 port: 5672
                 username: admin
                 password: admin
