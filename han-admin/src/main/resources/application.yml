@@ -20,11 +20,6 @@
 #    port: 6379 # Redis服务器连接端口
 #    password: 123456 # Redis服务器连接密码（默认为空）
 #    timeout: 3000ms # 连接超时时间（毫秒）
-#  rabbitmq: #rabbitmq相关配置
-#    host: localhost
-#    port: 5672
-#    username: guest
-#    password: guest
 #  servlet:
 #    multipart:
 #      enabled: true #开启文件上传
