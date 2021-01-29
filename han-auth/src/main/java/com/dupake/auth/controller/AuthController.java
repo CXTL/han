@@ -1,6 +1,6 @@
 package com.dupake.auth.controller;
 
-import com.dupake.auth.domain.Oauth2TokenDto;
+import com.dupake.common.domain.dto.Oauth2TokenDto;
 import com.dupake.common.api.CommonResult;
 import com.dupake.common.constant.AuthConstant;
 import io.swagger.annotations.Api;

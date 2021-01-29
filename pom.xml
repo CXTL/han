@@ -15,6 +15,7 @@
         <module>han-admin</module>
         <module>han-demo</module>
         <module>han-gateway</module>
+        <module>han-source</module>
     </modules>
 
     <parent>

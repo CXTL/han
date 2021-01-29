@@ -38,7 +38,7 @@ public class DemoController {
     public CommonResult<CommonPage<UmsAdmin>> getAdminListByPage(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                         @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
         List<UmsAdmin> brandList = demoService.getAdminListByPage(pageNum, pageSize);
-        return CommonResult.success(CommonPage.restPage(brandList));
+        return CommonResult.success(CommonPage.restPage(brandList,brandList.size()));
     }
 
 

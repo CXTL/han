@@ -16,9 +16,10 @@ import com.dupake.admin.service.UmsAdminCacheService;
 import com.dupake.admin.service.UmsAdminService;
 import com.dupake.admin.service.AuthService;
 import com.dupake.common.api.CommonResult;
-import com.dupake.common.api.ResultCode;
+import com.dupake.common.api.BaseResult;
 import com.dupake.common.constant.AuthConstant;
 import com.dupake.common.domain.UserDto;
+import com.dupake.common.domain.dto.Oauth2TokenDto;
 import com.dupake.common.exception.Asserts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -85,8 +86,8 @@ public class UmsAdminServiceImpl implements UmsAdminService {
         params.put("grant_type","password");
         params.put("username",param.getUsername());
         params.put("password",param.getPassword());
-        CommonResult restResult = authService.getAccessToken(params);
-        if(ResultCode.SUCCESS.getCode()==restResult.getCode() && restResult.getData()!=null){
+        CommonResult<Oauth2TokenDto> restResult = authService.getAccessToken(params);
+        if(BaseResult.SUCCESS.getCode()==restResult.getCode() && restResult.getData()!=null){
             insertLoginLog(param.getUsername());
         }
         return restResult;
@@ -115,7 +116,7 @@ public class UmsAdminServiceImpl implements UmsAdminService {
     public UmsAdmin getCurrentAdmin() {
         String userStr = request.getHeader(AuthConstant.USER_TOKEN_HEADER);
         if(StrUtil.isEmpty(userStr)){
-            Asserts.fail(ResultCode.UNAUTHORIZED);
+            Asserts.fail(BaseResult.UNAUTHORIZED);
         }
         UserDto userDto = JSONUtil.toBean(userStr, UserDto.class);
         UmsAdmin admin = adminCacheService.getAdmin(userDto.getId());

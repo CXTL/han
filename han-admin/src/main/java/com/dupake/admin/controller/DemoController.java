@@ -43,7 +43,7 @@ public class DemoController {
     public CommonResult<CommonPage<CmsHelp>> getCmsListByPage(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                                         @RequestParam(value = "pageSize", defaultValue = "3") Integer pageSize) {
         List<CmsHelp> brandList = demoService.getCmsListByPage(pageNum, pageSize);
-        return CommonResult.success(CommonPage.restPage(brandList));
+        return CommonResult.success(CommonPage.restPage(brandList,brandList.size()));
     }
 
     @ApiOperation(value = "新增帮助数据")

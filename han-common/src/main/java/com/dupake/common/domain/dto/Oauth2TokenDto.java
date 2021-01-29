@@ -1,4 +1,4 @@
-package com.dupake.auth.domain;
+package com.dupake.common.domain.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
