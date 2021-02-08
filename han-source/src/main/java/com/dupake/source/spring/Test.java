@@ -6,6 +6,6 @@ public class Test {
 
     public static void main(String[] args) {
         AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(Appconfig.class);
-        ac.getBean(UserService.class).getService();
+        System.out.println(ac.getBean(IndexService.class));
     }
 }
