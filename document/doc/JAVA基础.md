@@ -45,16 +45,17 @@ Entry对象使用弱引用
     	  
     	  ```
         }
-        
-        
-        
-          static class Entry extends WeakReference<ThreadLocal<?>> {
-                Object value;
-                Entry(ThreadLocal<?> k, Object v) {
-                    super(k);
-                    value = v;
-                }
-            }
+
+
+​        
+​        
+​          static class Entry extends WeakReference<ThreadLocal<?>> {
+​                Object value;
+​                Entry(ThreadLocal<?> k, Object v) {
+​                    super(k);
+​                    value = v;
+​                }
+​            }
 
 
 
@@ -81,7 +82,11 @@ Entry对象使用弱引用
 
 ABA问题：版本号解决
 
-CAS修改值的时候原子性原则问题。unsafe类中 compareAndSwapObj方法，由Native修饰， C++，lock cmpxchg 指令，所总线程
+CAS修改值的时候原子性原则问题。unsafe类中 compareAndSwapObj方法，由Native修饰， C++，lock cmpxchg 指令，锁总线程
+
+lock：用于多处理器中执行指令时共享内存的独占使用
+
+lock作用：当前处理器对应的缓存的内容刷新到内存，并使其他的处理器对应的缓存失效，另外还提供了有序的指令无法越过这个内存屏障的作用
 
 ### 重量级
 
@@ -113,3 +118,8 @@ jvm和对象的内存关系，创建的类在**InstanceKlass**类的实例 中�
 
 * 将类加载到方法区域，创建一个klass,klass中保存java类的的所有信息，包括 变量，方法，属性，构造方法等
 * 对象完成初始化时，jvm会在堆分配的空间中创建一个oop，这个oop主要存储对象实例的成员变量 ，同时存在一个指针指向 klass,jvm运行期间可以通过这个类获取到所有类元数据                                                                                                                          
+
+### volatile
+
+* 内容可见性
+* 防止指令重排序
